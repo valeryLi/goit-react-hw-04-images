@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { fetchImages, countTotalPages } from './services/imagesApi';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -10,7 +10,7 @@ import { Modal } from './Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import s from './App.module.css';
-import { useEffect } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 
 export const App = () => {
   const [images, setImages] = useState([]);
@@ -59,7 +59,7 @@ export const App = () => {
 
   const loadMore = () => {
     setPage(prevPage => prevPage + 1);
-    scrollImages();
+    scroll.scrollMore(800);
   };
 
   const openModal = data => {
@@ -70,12 +70,12 @@ export const App = () => {
     setCurrentImage(null);
   };
 
-  const scrollImages = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
-  };
+  // const scrollImages = () => {
+  //   window.scrollTo({
+  //     top: document.documentElement.scrollHeight,
+  //     behavior: 'smooth',
+  //   });
+  // };
 
   const notifyAboutError = () => {
     toast.error('Sorry, but there are no matching results.', {
