@@ -33,19 +33,21 @@ export const App = () => {
 
       setImages(prevImages => [...prevImages, ...filtredImages]);
       setTotalPages(countTotalPages);
+
+      setIsLoading(false);
     };
-
-    if (page === totalPages) {
-      notifyAboutLastPage();
-      setTotalPages(0);
-    }
-
-    setIsLoading(false);
 
     if (query) {
       getImage();
     }
-  }, [query, page, totalPages]);
+  }, [query, page]);
+
+  useEffect(() => {
+    if (page === totalPages) {
+      notifyAboutLastPage();
+      setTotalPages(0);
+    }
+  }, [page, totalPages]);
 
   const handleFormSubmit = query => {
     if (setQuery !== query) {
